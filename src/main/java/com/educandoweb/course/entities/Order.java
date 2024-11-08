@@ -98,11 +98,17 @@ public class Order implements Serializable{
 	public Set<OrderItem> getItems(){
 		return items;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for(OrderItem x : items) {
+			sum += x.getSubtotal();
+		}
+		return sum;
+		
 	}
+
+	
 
 	public OrderStatus getOrderStatus() {
 		return  OrderStatus.valueOf(orderStatus);
@@ -117,6 +123,11 @@ public class Order implements Serializable{
 		return serialVersionUID;
 	}
 
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
